@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { error } from 'console';
+import { register } from './controllers/auth.js';
 
 /*Configurations*/
 
@@ -35,8 +35,11 @@ const storage = multer.diskStorage({
     }
 });
 
-/*ryHUOBX8crCBTCVc */
+const upload = multer({storage});
+app.post("auth/register", upload.single("picture"), register);
 
+/*ryHUOBX8crCBTCVc */
+/*Mongo Setup */
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
